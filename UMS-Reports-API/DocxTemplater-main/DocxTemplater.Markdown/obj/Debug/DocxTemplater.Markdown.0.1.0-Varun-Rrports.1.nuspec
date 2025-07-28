@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DocxTemplater.Markdown</id>
+    <version>0.1.0-Varun-Rrports.1+91</version>
+    <authors>Orphis AG</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>DocxTemplater is a powerful C# library for generating DOCX documents from customizable templates.
+			It enables seamless data binding to templates, making document creation accessible even for non-programmers.
+			Key features include placeholder replacement, loops, conditional blocks, dynamic tables, Markdown and HTML support,
+			and image embedding. Optional packages extend functionality with advanced image handling and Markdown support,
+			making DocxTemplater an ideal tool for automating complex document workflows.</description>
+    <tags>docx template templating document-generation automation placeholder looping conditional-blocks markdown html-to-docx image-embedding CSharp OpenXML data-binding</tags>
+    <repository type="git" url="https://github.com/Amberg/DocxTemplater" branch="Varun_Rrports" commit="c3276199ccef7880386f3f7baa2bb50b2be74019" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="DocxTemplater" version="0.1.0-Varun-Rrports.1" exclude="Build,Analyzers" />
+        <dependency id="Markdig" version="[0.37.0, 1.0.0)" exclude="Build,Analyzers" />
+        <dependency id="System.IO.Packaging" version="9.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater.Markdown\bin\Debug\net8.0\DocxTemplater.Markdown.dll" target="lib\net8.0\DocxTemplater.Markdown.dll" />
+    <file src="D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater.Markdown\bin\Debug\net8.0\DocxTemplater.Markdown.xml" target="lib\net8.0\DocxTemplater.Markdown.xml" />
+    <file src="D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\readme.md" target="\readme.md" />
+  </files>
+</package>

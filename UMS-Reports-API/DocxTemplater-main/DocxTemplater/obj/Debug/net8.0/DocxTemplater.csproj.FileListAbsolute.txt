@@ -1,0 +1,17 @@
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\bin\Debug\net8.0\DocxTemplater.deps.json
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\bin\Debug\net8.0\DocxTemplater.dll
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\bin\Debug\net8.0\DocxTemplater.pdb
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\bin\Debug\net8.0\DocxTemplater.xml
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.csproj.AssemblyReference.cache
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.GeneratedMSBuildEditorConfig.editorconfig
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\GitVersionInformation.g.cs
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\AssemblyInfo.g.cs
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.AssemblyInfoInputs.cache
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.AssemblyInfo.cs
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.csproj.CoreCompileInputs.cache
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.sourcelink.json
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.dll
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\refint\DocxTemplater.dll
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.xml
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\DocxTemplater.pdb
+D:\varun_Reports\UMS-Reports-API\DocxTemplater-main\DocxTemplater\obj\Debug\net8.0\ref\DocxTemplater.dll

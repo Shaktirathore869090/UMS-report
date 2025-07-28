@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocxTemplater.Markdown</name>
+    </assembly>
+    <members>
+        <member name="P:DocxTemplater.Markdown.MarkDownFormatterConfiguration.UnorderedListStyle">
+            <summary>
+            Name of a list style in the template document applied to lists.
+            If this style is not found, a style is created based on <see cref="P:DocxTemplater.Markdown.MarkDownFormatterConfiguration.UnorderedListLevelConfiguration"/>
+            </summary>
+        </member>
+        <member name="P:DocxTemplater.Markdown.MarkDownFormatterConfiguration.OrderedListStyle">
+            <summary>
+            Name of a list style in the template document applied to lists.
+            If this style is not found, a style is created based on <see cref="P:DocxTemplater.Markdown.MarkDownFormatterConfiguration.OrderedListLevelConfiguration"/>
+            </summary>
+        </member>
+        <member name="P:DocxTemplater.Markdown.MarkDownFormatterConfiguration.TableStyle">
+            <summary>
+            Name of a table style in the template document applied to tables.
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Markdown.Renderer.ListStyleFactory.CrateNumberingInstance">
+            <summary>
+            Crates a AbstractNum format for multiple levels of lists
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

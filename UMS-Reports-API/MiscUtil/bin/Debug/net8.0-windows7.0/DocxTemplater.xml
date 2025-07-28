@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocxTemplater</name>
+    </assembly>
+    <members>
+        <member name="P:DocxTemplater.Formatter.FormatterContext.Formatter">
+            <summary>
+             Formatter without parentheses
+            </summary>
+        </member>
+        <member name="T:DocxTemplater.Formatter.IFormatterInitialization">
+            <summary>
+            Implement this interface on a <see cref="T:DocxTemplater.Formatter.IFormatter"/> If the formatter needs to be initialized with the <see cref="T:DocxTemplater.IModelLookup"/> and <see cref="T:DocxTemplater.ProcessSettings"/>
+            </summary>
+        </member>
+        <member name="T:DocxTemplater.Formatter.SubTemplateFormatter">
+            <summary>
+            Formatter for inserting a template into the document
+            Arguments:
+            
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Formatter.VariableReplacer.ApplyFormatter(DocxTemplater.PatternMatch,DocxTemplater.ValueWithMetadata,DocumentFormat.OpenXml.Wordprocessing.Text)">
+            <summary>
+            the formatter string is the leading formatter prefix, e.g. "FORMAT" followed by the formatter arguments ae image(100,200)
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Formatter.VariableReplacer.GetFormatterText(DocxTemplater.PatternMatch,DocxTemplater.ValueWithMetadata,System.String[]@)">
+            <summary>
+            Use the formatter from the template, if not available use the default formatter from the metadata
+            set through <see cref="T:DocxTemplater.ModelPropertyAttribute"/>
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Formatter.VariableReplacer.SplitNewLinesInText(DocumentFormat.OpenXml.Wordprocessing.Text)">
+            <summary>
+            Insert Breaks for line breaks in the text
+            </summary>
+        </member>
+        <member name="T:DocxTemplater.ITemplateModel">
+            <summary>
+            Interface for template model if a normal object or a dictionary is not suitable.
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.OpenXmlHelper.ElementBeforeInDocument``1(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Traverses the tree upwards and returns the first element of the given type.
+            </summary>
+            <typeparam name="TElement"></typeparam>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DocxTemplater.OpenXmlHelper.SplitAfterElement(DocumentFormat.OpenXml.OpenXmlElement,DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Splits the element after the given descendant element.
+            And returns the two parts of the split element.
+            </summary>
+        </member>
+    </members>
+</doc>

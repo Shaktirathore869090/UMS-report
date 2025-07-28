@@ -1,0 +1,6 @@
+@DocXReports_HostAddress = http://localhost:5013
+
+GET {{DocXReports_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

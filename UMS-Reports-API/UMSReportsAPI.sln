@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMSReportsAPI", "UMSReportsAPI\UMSReportsAPI.csproj", "{F5D614A7-C23D-4B38-8012-C55AE2CB1D86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscUtil", "MiscUtil\MiscUtil.csproj", "{A7257A68-486D-4AC8-B52A-5EB1829E08CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocXReports", "DocXReports\DocXReports.csproj", "{0C4E79FA-A64A-4519-872B-7A3B69885546}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocxTemplater", "DocxTemplater", "{F92D273C-4C43-4971-B209-B99C7D7C470B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocxTemplater", "DocxTemplater-main\DocxTemplater\DocxTemplater.csproj", "{A43B23D2-4947-4DA0-99BA-A13741DF26B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocxTemplater.Images", "DocxTemplater-main\DocxTemplater.Images\DocxTemplater.Images.csproj", "{909A5912-3CFF-41B6-B512-1FE5ADC1430C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocxTemplater.Markdown", "DocxTemplater-main\DocxTemplater.Markdown\DocxTemplater.Markdown.csproj", "{D98573C1-605D-4641-A78C-6AE62BE2F505}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5D614A7-C23D-4B38-8012-C55AE2CB1D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D614A7-C23D-4B38-8012-C55AE2CB1D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D614A7-C23D-4B38-8012-C55AE2CB1D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D614A7-C23D-4B38-8012-C55AE2CB1D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7257A68-486D-4AC8-B52A-5EB1829E08CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7257A68-486D-4AC8-B52A-5EB1829E08CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7257A68-486D-4AC8-B52A-5EB1829E08CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7257A68-486D-4AC8-B52A-5EB1829E08CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C4E79FA-A64A-4519-872B-7A3B69885546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C4E79FA-A64A-4519-872B-7A3B69885546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C4E79FA-A64A-4519-872B-7A3B69885546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C4E79FA-A64A-4519-872B-7A3B69885546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A43B23D2-4947-4DA0-99BA-A13741DF26B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A43B23D2-4947-4DA0-99BA-A13741DF26B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A43B23D2-4947-4DA0-99BA-A13741DF26B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A43B23D2-4947-4DA0-99BA-A13741DF26B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909A5912-3CFF-41B6-B512-1FE5ADC1430C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909A5912-3CFF-41B6-B512-1FE5ADC1430C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909A5912-3CFF-41B6-B512-1FE5ADC1430C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909A5912-3CFF-41B6-B512-1FE5ADC1430C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98573C1-605D-4641-A78C-6AE62BE2F505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98573C1-605D-4641-A78C-6AE62BE2F505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98573C1-605D-4641-A78C-6AE62BE2F505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98573C1-605D-4641-A78C-6AE62BE2F505}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A43B23D2-4947-4DA0-99BA-A13741DF26B1} = {F92D273C-4C43-4971-B209-B99C7D7C470B}
+		{909A5912-3CFF-41B6-B512-1FE5ADC1430C} = {F92D273C-4C43-4971-B209-B99C7D7C470B}
+		{D98573C1-605D-4641-A78C-6AE62BE2F505} = {F92D273C-4C43-4971-B209-B99C7D7C470B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0BE27A9D-4FE1-426C-85F7-30BA7B93C9F5}
+	EndGlobalSection
+EndGlobal

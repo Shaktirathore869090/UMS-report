@@ -1,0 +1,6 @@
+111 - Country
+112 - State
+* 113 - District
+114 - Division
+115 - Towns
+116 - Tehasil

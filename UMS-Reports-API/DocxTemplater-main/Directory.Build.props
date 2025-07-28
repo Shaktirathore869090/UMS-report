@@ -1,0 +1,75 @@
+<Project>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug' ">
+		<WarningsNotAsErrors>CS1030</WarningsNotAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<!--Code Analysis-->
+	<PropertyGroup>
+		<AnalysisLevelDocumentation>latest-minimum</AnalysisLevelDocumentation>
+		<AnalysisLevelGlobalization>latest-minimum</AnalysisLevelGlobalization>
+		<AnalysisLevelInteroperability>latest-minimum</AnalysisLevelInteroperability>
+
+		<AnalysisLevelDesign>latest-recommended</AnalysisLevelDesign>
+		<AnalysisLevelMaintainability>latest-recommended</AnalysisLevelMaintainability>
+		<AnalysisLevelNaming>latest-recommended</AnalysisLevelNaming>
+		<AnalysisLevelPerformance>latest-recommended</AnalysisLevelPerformance>
+		<AnalysisLevelSingleFile>latest-recommended</AnalysisLevelSingleFile>
+		<AnalysisLevelReliability>latest-recommended</AnalysisLevelReliability>
+		<AnalysisLevelSecurity>latest-recommended</AnalysisLevelSecurity>
+		<AnalysisLevelUsage>latest-recommended</AnalysisLevelUsage>
+		<AnalysisLevelStyle>latest-recommended</AnalysisLevelStyle>
+		<!--Enforce analyzers during build-->
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<PackageId>$(MSBuildProjectName)</PackageId>
+		<RepositoryType>git</RepositoryType>
+		<Authors>Orphis AG</Authors>
+		<Company>Orphis AG</Company>
+		<Description>
+			DocxTemplater is a powerful C# library for generating DOCX documents from customizable templates.
+			It enables seamless data binding to templates, making document creation accessible even for non-programmers.
+			Key features include placeholder replacement, loops, conditional blocks, dynamic tables, Markdown and HTML support,
+			and image embedding. Optional packages extend functionality with advanced image handling and Markdown support,
+			making DocxTemplater an ideal tool for automating complex document workflows.
+		</Description>
+		<RepositoryUrl>https://github.com/Amberg/DocxTemplater</RepositoryUrl>
+		<ProjectUrl>https://github.com/Amberg/DocxTemplater</ProjectUrl>
+		<PackageTags>docx;template;templating;document-generation;automation;placeholder;looping;conditional-blocks;markdown;html-to-docx;image-embedding;CSharp;OpenXML;data-binding</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' != 'Debug' ">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<!--<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+		Used TreatWarningsAsErrors instead due a bug - https://github.com/dotnet/roslyn-analyzers/issues/6281
+		-->
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug' ">
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<!--<CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+		Used TreatWarningsAsErrors instead due a bug - https://github.com/dotnet/roslyn-analyzers/issues/6281
+		-->
+	</PropertyGroup>
+
+	<!-- Workaround for https://github.com/dotnet/roslyn/issues/41640 -->
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../readme.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+	</PropertyGroup>
+
+</Project>

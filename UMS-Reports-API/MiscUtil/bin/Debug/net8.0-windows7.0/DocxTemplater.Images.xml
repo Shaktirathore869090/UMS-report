@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocxTemplater.Images</name>
+    </assembly>
+    <members>
+        <member name="M:DocxTemplater.Images.ImageFormatter.TryHandleImageInWordprocessingShape(DocumentFormat.OpenXml.Wordprocessing.Text,DocxTemplater.Images.ImageFormatter.ImageInfo,System.String,System.UInt32)">
+            <summary>
+                If the image is contained in a "wsp" element (TextBox), the text box is used as a container for the image.
+                the size of the text box is adjusted to the size of the image.
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Images.ImageFormatter.AddInlineGraphicToRun(DocumentFormat.OpenXml.Wordprocessing.Text,DocxTemplater.Images.ImageFormatter.ImageInfo,System.UInt32,System.String[])">
+            <summary>
+            If image is not part of a textbox this method is used to add the image to the run.
+            </summary>
+        </member>
+        <member name="M:DocxTemplater.Images.ImageFormatter.TransformSize(System.Int32,System.Int32,System.String[],System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Transforms the width and height of the image to the size in EMU.
+            arguments is in format:
+            Examples:
+            "w:90px;h:90px;r:90"
+            "w:90cm;h:90cm;r:90"
+            "h:90cm;r:90"
+            "w:90cm;h:90cm"
+            "w:90cm;h:90cm;r:90"
+            available units are px, cm, in, pt
+            </summary>
+        </member>
+    </members>
+</doc>

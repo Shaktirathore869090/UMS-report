@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "DocXReports.Controllers.DocXReportController",
+    "Method": "RenderDocXReport",
+    "RelativePath": "api/DocXReports/Render",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "formBody",
+        "Type": "Newtonsoft.Json.Linq.JObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DocXReports.Controllers.DocXReportController",
+    "Method": "RenderDocXReportV1",
+    "RelativePath": "api/DocXReports/RenderV1",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "formBody",
+        "Type": "Newtonsoft.Json.Linq.JObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

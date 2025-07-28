@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "E51wcYToxMg=",
+  "success": true,
+  "projectFilePath": "D:\\varun_Reports\\UMS-Reports-API\\DocxTemplater-main\\DocxTemplater.Markdown\\DocxTemplater.Markdown.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Varun\\.nuget\\packages\\documentformat.openxml\\3.1.0\\documentformat.openxml.3.1.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\documentformat.openxml.framework\\3.1.0\\documentformat.openxml.framework.3.1.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\dynamicexpresso.core\\2.16.1\\dynamicexpresso.core.2.16.1.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\gitversion.msbuild\\5.12.0\\gitversion.msbuild.5.12.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\markdig\\0.37.0\\markdig.0.37.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\system.io.packaging\\9.0.0\\system.io.packaging.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

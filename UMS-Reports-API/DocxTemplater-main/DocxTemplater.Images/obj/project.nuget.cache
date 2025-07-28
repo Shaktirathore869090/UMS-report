@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "FEhLCezEvhQ=",
+  "success": true,
+  "projectFilePath": "D:\\varun_Reports\\UMS-Reports-API\\DocxTemplater-main\\DocxTemplater.Images\\DocxTemplater.Images.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Varun\\.nuget\\packages\\documentformat.openxml\\3.1.0\\documentformat.openxml.3.1.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\documentformat.openxml.framework\\3.1.0\\documentformat.openxml.framework.3.1.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\dynamicexpresso.core\\2.16.1\\dynamicexpresso.core.2.16.1.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\gitversion.msbuild\\5.12.0\\gitversion.msbuild.5.12.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\sixlabors.imagesharp\\3.1.5\\sixlabors.imagesharp.3.1.5.nupkg.sha512",
+    "C:\\Users\\Varun\\.nuget\\packages\\system.io.packaging\\9.0.0\\system.io.packaging.9.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-2cmq-823j-5qj8",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}
