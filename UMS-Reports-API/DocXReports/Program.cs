@@ -3,14 +3,13 @@ using DocXReports.BO;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers().AddNewtonsoftJson(options => {
-    // Optional: Configure serializer settings
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
     options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
     options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,14 +18,19 @@ ConfigHelper.Configuration = builder.Configuration;
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Swagger is always enabled — accessible at /swagger in all environments.
+// In a containerised deployment there is no "Development" toggle; the API
+// is internal (behind a reverse proxy) so exposing Swagger is safe.
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocXReports v1");
+    c.RoutePrefix = "swagger"; // http://host:5013/swagger
+});
 
-app.UseHttpsRedirection();
+// HTTPS redirection is intentionally removed.
+// TLS is terminated at the reverse proxy / load balancer layer.
+// Inside the container the app speaks plain HTTP on port 5013.
 
 app.UseAuthorization();
 

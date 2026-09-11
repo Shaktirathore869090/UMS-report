@@ -1,0 +1,182 @@
+# ==============================================================================
+# Dockerfile.windows — UMSReportsAPI (.NET Framework 4.7.2 / IIS / Crystal Reports)
+#
+# IMPORTANT: This is a WINDOWS container — not Linux.
+# Crystal Reports 13 and .NET Framework 4.7.2 are Windows-only technologies.
+# This image runs on Windows Server 2019/2022 or Windows 10/11 Pro (Hyper-V).
+#
+# REQUIREMENT: Docker Desktop must be in WINDOWS CONTAINERS mode.
+#   Right-click Docker tray icon → "Switch to Windows containers"
+#
+# BUILD (run from UMS-Reports-API\ folder):
+#   docker build -f Dockerfile.windows -t ums-reports-api-win:latest .
+#
+# RUN:
+#   docker run -d -p 8080:80 `
+#     -e DBServer=213.199.57.102\DEVELOPER `
+#     -e DBName=EDPS_DEVELOPERS `
+#     -e DBCredentials=c2E6MzkxTHFHN2dVdUs3 `
+#     -e DocXAPIEndpoint=http://YOUR_LINUX_SERVER:5013/api/DocXReports/Render `
+#     --name ums-reports-win `
+#     ums-reports-api-win:latest
+#
+# TEST:
+#   http://localhost:8080/api/Reports/UMS/EncodeCredentials?username=sa&password=test
+#   http://localhost:8080/swagger
+# ==============================================================================
+
+
+# ==============================================================================
+# Stage 1 — Build
+# mcr.microsoft.com/dotnet/framework/sdk:4.8 contains:
+#   - MSBuild 17
+#   - NuGet CLI
+#   - .NET Framework 4.8 SDK (backward-compatible with 4.7.2)
+#   - Web Deploy tools
+# ==============================================================================
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2022 AS build
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+WORKDIR C:\\build
+
+# ── Copy NuGet packages folder first (already on disk — no internet needed) ──
+# The packages\ folder contains all NuGet packages including Crystal Reports.
+# Copying this first allows NuGet restore to use local cache.
+COPY packages\ packages\
+
+# ── Copy solution and project files ──────────────────────────────────────────
+COPY UMSReportsAPI.sln                  .
+COPY UMSReportsAPI\UMSReportsAPI.csproj UMSReportsAPI\
+COPY UMSReportsAPI\packages.config      UMSReportsAPI\
+
+# ── Restore NuGet packages from local packages\ folder ───────────────────────
+# -PackagesDirectory forces NuGet to use our local packages\ folder.
+# -NonInteractive prevents NuGet from prompting.
+# -Verbosity quiet suppresses noise.
+RUN nuget restore UMSReportsAPI.sln `
+      -PackagesDirectory packages `
+      -NonInteractive `
+      -Verbosity quiet
+
+# ── Copy all remaining source files ──────────────────────────────────────────
+COPY UMSReportsAPI\ UMSReportsAPI\
+
+# ── Build and publish the web application ────────────────────────────────────
+# WebPublishMethod=FileSystem publishes all runtime files to C:\publish:
+#   bin\        → compiled DLLs including Crystal Reports assemblies
+#   Reports\    → .rpt report files
+#   Web.config  → configuration
+#   Views\      → Razor views
+#   Scripts\    → JS/CSS assets
+RUN msbuild UMSReportsAPI\UMSReportsAPI.csproj `
+      /p:Configuration=Release `
+      /p:Platform=AnyCPU `
+      /p:WebPublishMethod=FileSystem `
+      /p:PublishUrl=C:\publish `
+      /p:DeployOnBuild=true `
+      /p:DeleteExistingFiles=True `
+      /p:DeployDefaultTarget=WebPublish `
+      /nologo `
+      /verbosity:minimal
+
+
+# ==============================================================================
+# Stage 2 — Runtime
+# mcr.microsoft.com/dotnet/framework/aspnet:4.8 contains:
+#   - Windows Server Core 2022
+#   - IIS (pre-configured)
+#   - ASP.NET 4.8 (backward-compatible with 4.7.2 assemblies)
+#   - ServiceMonitor.exe (keeps IIS running as foreground process)
+# ==============================================================================
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2022 AS runtime
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# ── Install Crystal Reports Runtime ──────────────────────────────────────────
+# Crystal Reports 13 requires its native Windows runtime MSI to be installed.
+# The NuGet packages contain the managed DLLs but NOT the native COM runtime.
+# Without the runtime installed, Crystal Reports throws:
+#   "The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception"
+#
+# OPTION A (recommended): Copy the installer from your local machine.
+#   1. Download CRRuntime_64bit_13_0_29.exe from:
+#      https://www.sap.com/cmp/syb/crv/index.html  (free, requires SAP account)
+#   2. Place it in UMS-Reports-API\ folder next to this Dockerfile
+#   3. Uncomment the two lines below and comment out OPTION B
+#
+# COPY CRRuntime_64bit_13_0_29.exe C:\CRRuntime.exe
+# RUN Start-Process -FilePath 'C:\CRRuntime.exe' -ArgumentList '/quiet','/norestart' -Wait; Remove-Item 'C:\CRRuntime.exe' -Force
+
+# OPTION B (automatic download — requires internet during build):
+# Downloads directly from SAP during image build.
+# If the SAP URL changes, switch to OPTION A.
+RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Write-Host 'Downloading Crystal Reports Runtime...'; \
+    Invoke-WebRequest \
+      -Uri 'https://origin.softwaredownloads.sap.com/public/file/0020000001479862023' \
+      -OutFile 'C:\CRRuntime.exe' \
+      -UseBasicParsing; \
+    Write-Host 'Installing Crystal Reports Runtime...'; \
+    Start-Process -FilePath 'C:\CRRuntime.exe' \
+      -ArgumentList '/quiet', '/norestart' \
+      -Wait; \
+    Remove-Item 'C:\CRRuntime.exe' -Force; \
+    Write-Host 'Crystal Reports Runtime installed.'
+
+# ── Clean default IIS site ────────────────────────────────────────────────────
+WORKDIR C:\\inetpub\\wwwroot
+RUN Remove-Item -Recurse -Force C:\inetpub\wwwroot\* -ErrorAction SilentlyContinue
+
+# ── Copy published application ────────────────────────────────────────────────
+COPY --from=build C:\\publish .
+
+# ── Configure IIS Application Pool and Site ───────────────────────────────────
+# Creates a dedicated App Pool running CLR v4.0 in Integrated pipeline mode.
+# The Default Web Site is reconfigured to use this pool and point at wwwroot.
+RUN Import-Module WebAdministration; \
+    \
+    # Create App Pool \
+    New-WebAppPool -Name 'UMSReportsPool'; \
+    Set-ItemProperty 'IIS:\AppPools\UMSReportsPool' managedRuntimeVersion 'v4.0'; \
+    Set-ItemProperty 'IIS:\AppPools\UMSReportsPool' managedPipelineMode 'Integrated'; \
+    Set-ItemProperty 'IIS:\AppPools\UMSReportsPool' 'processModel.identityType' 'ApplicationPoolIdentity'; \
+    Set-ItemProperty 'IIS:\AppPools\UMSReportsPool' 'processModel.loadUserProfile' $true; \
+    \
+    # Assign pool and path to Default Web Site \
+    Set-ItemProperty 'IIS:\Sites\Default Web Site' applicationPool 'UMSReportsPool'; \
+    Set-ItemProperty 'IIS:\Sites\Default Web Site' physicalPath 'C:\inetpub\wwwroot'; \
+    \
+    Write-Host 'IIS configured.'
+
+# ── Create Reports folder with write permissions ──────────────────────────────
+# IIS App Pool identity needs write access for temp files Crystal Reports creates.
+RUN New-Item -ItemType Directory -Path C:\inetpub\wwwroot\App_Data -Force | Out-Null; \
+    $acl = Get-Acl C:\inetpub\wwwroot; \
+    $rule = New-Object System.Security.AccessControl.FileSystemAccessRule( \
+      'IIS AppPool\UMSReportsPool', 'FullControl', 'ContainerInherit,ObjectInherit', 'None', 'Allow'); \
+    $acl.AddAccessRule($rule); \
+    Set-Acl C:\inetpub\wwwroot $acl; \
+    Write-Host 'Permissions set.'
+
+# ── Environment variable overrides ───────────────────────────────────────────
+# WebSettings.cs reads these env vars first (before Web.config).
+# Override at runtime using: docker run -e DBServer=x.x.x.x ...
+#
+# DBServer        → SQL Server host (IP or hostname\instance)
+# DBName          → SQL Server database name
+# DBCredentials   → Base64 encoded "username:password"
+# DocXAPIEndpoint → URL of the DocXReports Linux container
+ENV DBServer="213.199.57.102\\DEVELOPER" \
+    DBName="EDPS_DEVELOPERS" \
+    DBCredentials="c2E6MzkxTHFHN2dVdUs3" \
+    DocXAPIEndpoint="http://docx-api:5013/api/DocXReports/Render"
+
+# ── Expose port 80 ────────────────────────────────────────────────────────────
+# IIS listens on port 80 inside the container.
+# Map to any host port at runtime: docker run -p 8080:80 ...
+EXPOSE 80
+
+# ── The base image ENTRYPOINT starts IIS via ServiceMonitor.exe ───────────────
+# ServiceMonitor watches the W3SVC Windows service and keeps the container
+# alive as long as IIS is running. No override needed.

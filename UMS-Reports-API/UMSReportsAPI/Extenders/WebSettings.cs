@@ -8,10 +8,21 @@ namespace UMSReportsAPI.Extenders
 {
     public static class WebSettings
     {
-        public static string ReadKey(string key) { return ConfigurationManager.AppSettings[key].Coalesce(); }
-        public static string DBServer { get { return ConfigurationManager.AppSettings["DBServer"].Coalesce(); } }
-        public static string DBName { get { return ConfigurationManager.AppSettings["DBName"].Coalesce(); } }
-        public static string DBCredentials { get { return ConfigurationManager.AppSettings["DBCredentials"].Coalesce(); } }
+        /// <summary>
+        /// Read a config value, preferring environment variables over Web.config.
+        /// This allows Docker / container deployments to override settings without
+        /// modifying Web.config (e.g. -e DBServer=192.168.1.10).
+        /// </summary>
+        private static string Resolve(string key)
+        {
+            return Environment.GetEnvironmentVariable(key).Coalesce()
+                ?? ConfigurationManager.AppSettings[key].Coalesce();
+        }
+
+        public static string ReadKey(string key) { return Resolve(key); }
+        public static string DBServer { get { return Resolve("DBServer"); } }
+        public static string DBName { get { return Resolve("DBName"); } }
+        public static string DBCredentials { get { return Resolve("DBCredentials"); } }
         public static string ConnectionString
         {
             get

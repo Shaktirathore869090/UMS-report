@@ -1,0 +1,82 @@
+# ==============================================================================
+# .dockerignore — DocXReports API
+#
+# Excludes files from the Docker build context (what gets sent to the Docker
+# daemon when you run "docker build").
+#
+# WHY this matters:
+#   Docker sends the entire build context folder to the daemon before building.
+#   Without this file, it would send node_modules, bin/obj folders, the entire
+#   UMSReportsAPI project, .git history, temp files — potentially gigabytes
+#   of data that the Dockerfile never needs. This file keeps the context small
+#   and the build fast.
+# ==============================================================================
+
+
+# ── Build output — never needed, regenerated during build ────────────────────
+**/bin/
+**/obj/
+
+# ── Visual Studio / IDE files ─────────────────────────────────────────────────
+**/.vs/
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+.vscode/
+.idea/
+
+# ── Git — we create a fresh dummy repo inside the container ──────────────────
+# The real .git folder is excluded for two reasons:
+#   1. It can be 100MB+ with full commit history
+#   2. We create a clean throwaway git repo inside the build stage anyway
+.git/
+.gitignore
+.gitattributes
+
+# ── UMSReportsAPI — the .NET Framework project, not needed for DocXReports ───
+# This is the Crystal Reports / IIS project. It has nothing to do with the
+# DocXReports Linux container. Excluding it keeps the build context small.
+UMSReportsAPI/
+
+# ── Windows Dockerfile — not needed inside the Linux image build ──────────────
+Dockerfile.windows
+
+# ── Docker Compose — not needed inside the image ─────────────────────────────
+docker-compose.yml
+docker-compose*.yml
+
+# ── Temp and lock files left by LibreOffice / Windows ────────────────────────
+**/*.tmp
+**/*.temp
+**/~$*
+**/DocXHtmlToPdfConverterTmp/
+
+# ── Already-rendered output — these are runtime artifacts, not source files ──
+DocXReports/Resources/
+
+# ── NuGet package cache — packages are restored fresh during build ────────────
+# If you have a local packages/ folder, exclude it — NuGet restores from
+# nuget.org inside the container anyway.
+packages/
+*.nupkg
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+**/*.log
+**/logs/
+
+# ── Misc project files not needed in the image ───────────────────────────────
+clip.txt
+*.7z
+*.zip
+*.rar
+README*
+CHANGELOG*
+*.md
+
+# ── DocxTemplater test / markdown projects — only core library is needed ──────
+DocxTemplater-main/DocxTemplater.Test/
+DocxTemplater-main/DocxTemplater.Markdown/
+DocxTemplater-main/**/*.md
+DocxTemplater-main/**/*.txt
+DocxTemplater-main/**/.git/

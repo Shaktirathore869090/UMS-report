@@ -1,0 +1,56 @@
+# docker-compose.yml
+# Runs both APIs together:
+#   - ums-reports-win   → UMSReportsAPI  (Windows container, IIS, port 8080)
+#   - docx-api          → DocXReports    (Linux container, .NET 8, port 5013)
+#
+# IMPORTANT: Mixed OS containers (Windows + Linux) require Docker Desktop
+# in "Windows containers" mode with experimental features enabled, OR
+# you run them on separate hosts and connect over a real network.
+#
+# Simpler option: run each container separately (see README comments below).
+#
+# Usage:
+#   docker-compose up -d
+#
+# ── Override config at runtime ──
+#   DBServer, DBName, DBCredentials, DocXAPIEndpoint can be set via
+#   environment variables or a .env file in the same folder.
+
+version: "3.8"
+
+services:
+
+  # ── DocXReports (Linux) ──────────────────────────────────
+  docx-api:
+    image: ums-reports-api                      # built from Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docx-api
+    ports:
+      - "5013:5013"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://+:5013"
+      AppSettings__LibreOfficePath: /usr/bin/soffice
+    restart: unless-stopped
+
+  # ── UMSReportsAPI (Windows) ──────────────────────────────
+  ums-reports-win:
+    image: ums-reports-api-win                  # built from Dockerfile.windows
+    build:
+      context: .
+      dockerfile: Dockerfile.windows
+    container_name: ums-reports-win
+    ports:
+      - "8080:80"
+    environment:
+      DBServer: "${DBServer:-213.199.57.102\\DEVELOPER}"
+      DBName: "${DBName:-EDPS_DEVELOPERS}"
+      DBCredentials: "${DBCredentials:-c2E6MzkxTHFHN2dVdUs3}"
+      # Points to the docx-api container by its service name on the
+      # shared network.  Use http (not https) inside Docker.
+      DocXAPIEndpoint: "http://docx-api:5013/api/DocXReports/Render"
+    depends_on:
+      - docx-api
+    restart: unless-stopped

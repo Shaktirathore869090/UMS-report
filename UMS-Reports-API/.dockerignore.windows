@@ -1,0 +1,36 @@
+# .dockerignore for Dockerfile.windows (UMSReportsAPI Windows container)
+# Rename this to .dockerignore when building UMSReportsAPI,
+# or use: docker build -f Dockerfile.windows ...
+# (Docker automatically uses .dockerignore in the same folder)
+
+# ── Build output ──────────────────────────────────────────────────────────────
+**/bin/
+**/obj/
+
+# ── IDE files ─────────────────────────────────────────────────────────────────
+**/.vs/
+**/*.user
+**/*.suo
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+.git/
+.gitignore
+
+# ── DocXReports project — not part of this Windows image ─────────────────────
+DocXReports/
+DocxTemplater-main/
+Dockerfile
+deploy.ps1
+
+# ── Temp / lock files ─────────────────────────────────────────────────────────
+**/*.tmp
+**/~$*
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+**/*.log
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.tar
+*.7z
+*.zip
+clip.txt
